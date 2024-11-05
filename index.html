@@ -24,12 +24,12 @@
     <div>
         <h1>Countdown to Midnight</h1>
         <div id="countdown">Loading...</div>
-        <label>
-            <input type="checkbox" id="secondsOnly"> Show in seconds only
-        </label>
+        <button id="toggleButton">Show in seconds only</button>
     </div>
 
     <script>
+        let showSecondsOnly = false;
+
         function updateCountdown() {
             const now = new Date();
             const midnight = new Date();
@@ -43,9 +43,7 @@
 
             const secondsOnly = Math.floor(remainingTime / 1000);
 
-            const showSecondsOnly = document.getElementById('secondsOnly').checked;
-
-            document.getElementById('countdown').innerHTML = 
+            document.getElementById('countdown').innerHTML =
                 showSecondsOnly ? `${secondsOnly}s` : `${hours}h ${minutes}m ${seconds}s`;
 
             // If the countdown is finished, write some text
@@ -54,6 +52,13 @@
                 document.getElementById('countdown').innerHTML = "It's Midnight!";
             }
         }
+
+        document.getElementById('toggleButton').addEventListener('click', () => {
+            showSecondsOnly = !showSecondsOnly;
+            document.getElementById('toggleButton').innerText = showSecondsOnly
+                ? 'Show in hours, minutes, and seconds'
+                : 'Show in seconds only';
+        });
 
         const timer = setInterval(updateCountdown, 1000);
         updateCountdown(); // Call it once to initialize
