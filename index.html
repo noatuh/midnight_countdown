@@ -24,6 +24,9 @@
     <div>
         <h1>Countdown to Midnight</h1>
         <div id="countdown">Loading...</div>
+        <label>
+            <input type="checkbox" id="secondsOnly"> Show in seconds only
+        </label>
     </div>
 
     <script>
@@ -38,8 +41,12 @@
             const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
+            const secondsOnly = Math.floor(remainingTime / 1000);
+
+            const showSecondsOnly = document.getElementById('secondsOnly').checked;
+
             document.getElementById('countdown').innerHTML = 
-                `${hours}h ${minutes}m ${seconds}s`;
+                showSecondsOnly ? `${secondsOnly}s` : `${hours}h ${minutes}m ${seconds}s`;
 
             // If the countdown is finished, write some text
             if (remainingTime < 0) {
@@ -48,7 +55,6 @@
             }
         }
 
-        // Update the countdown every second
         const timer = setInterval(updateCountdown, 1000);
         updateCountdown(); // Call it once to initialize
     </script>
